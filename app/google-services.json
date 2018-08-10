@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "300218436887",
+    "firebase_url": "https://socialmediaapplication-4cbbf.firebaseio.com",
+    "project_id": "socialmediaapplication-4cbbf",
+    "storage_bucket": "socialmediaapplication-4cbbf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300218436887:android:5be6d6964e28cc15",
+        "android_client_info": {
+          "package_name": "com.alpha.twostudents.socialmediaapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300218436887-b3termdobgbo074a78rq8uv24d168dhe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alpha.twostudents.socialmediaapplication",
+            "certificate_hash": "106986b001cbcfba19734e5132a2cd8cf4a5f934"
+          }
+        },
+        {
+          "client_id": "300218436887-62q2grsqb2vkjsi7l6fnb6d0haq8or8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcbiHBXEFeym-VgfH_Vy7FEolOMCJTMGo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300218436887-62q2grsqb2vkjsi7l6fnb6d0haq8or8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
