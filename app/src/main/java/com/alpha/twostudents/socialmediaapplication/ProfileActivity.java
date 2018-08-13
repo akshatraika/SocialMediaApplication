@@ -1,41 +1,34 @@
-package com.alpha.twostudents.socialmediaapplication;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Initial activity fot the user. Displays the Home fragment initially.
 // Displays after login is successful
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
+package com.alpha.twostudents.socialmediaapplication;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.alpha.twostudents.socialmediaapplication.CameraFragment;
+import com.alpha.twostudents.socialmediaapplication.HomeFragment;
+import com.alpha.twostudents.socialmediaapplication.LoginActivity;
+import com.alpha.twostudents.socialmediaapplication.ProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, HomeFragment.OnFragmentInteractionListener, CameraFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener {
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
@@ -74,11 +67,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         //Declaring navigation listeners and initialising fragment for the current state i.e home
-//        BottomNavigationView bottomNav =  findViewById(R.id.navigation);
-//        bottomNav.setOnNavigationItemSelectedListener(navListener);
-//        getSupportFragmentManager().beginTransaction().
-//                replace(R.id.fragment_container, new HomeFragment()).commit();
+        BottomNavigationView bottomNav =  findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        try {
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container, new HomeFragment()).commit();
+        } catch (RuntimeException e){
+            Log.e("", "RunTime Exception occurred while initiating fragments" );
+        }
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -91,9 +90,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 //        //Displaying the user email id on the top
 //        //TODO get rid of this once menu bar on the left is finished
-//        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-//        textViewUserEmail.setText("Welcome " + user.getEmail());
+        textViewUserEmail = findViewById(R.id.textViewCurrentUser);
+        textViewUserEmail.setText("Welcome " + user.getEmail());
         buttonLogout = (Button) findViewById(R.id.buttonLogOut);
+        buttonLogout.setText(user.getEmail());
         buttonLogout.setOnClickListener(this);
 
     }
@@ -106,5 +106,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, LoginActivity.class));
 
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
