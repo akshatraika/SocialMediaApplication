@@ -1,13 +1,23 @@
 package com.alpha.twostudents.socialmediaapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageReference;
 
 
 /**
@@ -23,6 +33,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ImageView profilePicImageView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -59,16 +70,32 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        View v = new View(this.getContext());
+        logOutBtn = v.findViewById(R.id.button_log_out);
+        profilePicImageView = v.findViewById(R.id.imageViewProfilePic);
+        try {
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            storageReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + "\\" + "ProfilePic.png");
 
+            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    profilePicImageView.setImageURI(uri);
+                }
+            });
+        } catch (NullPointerException e){
+            Log.e(" ", "File not found");
+        } catch (Exception e){
+            Log.e(" ", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_profile, container, false);
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -97,8 +124,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        //TODO implement log off button in this fragment
-
+        if (view == logOutBtn){
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getActivity(),LoginActivity.class));
+        }
     }
 
     /**

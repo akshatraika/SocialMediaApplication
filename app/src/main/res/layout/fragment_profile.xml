@@ -16,9 +16,9 @@
         android:id="@+id/button_log_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/textView2"
-        android:layout_toStartOf="@+id/textView2"
         android:text="Log Out" />
 
     <ImageView
@@ -26,8 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/common_full_open_on_phone" />
+        android:layout_below="@+id/button_log_out"
+        app:srcCompat="@drawable/common_full_open_on_phone"
+        android:contentDescription="User profile picture" />
 
 
 </RelativeLayout>
